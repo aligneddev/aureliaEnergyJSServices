@@ -1,5 +1,13 @@
 /** My additions **/
 
+.page-host {
+    position: absolute;
+    left: 50px;
+    right: 0;
+    top: 50px;
+    bottom: 0;
+}
+
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
   background-color: #550055;
   color:#eeeeee;
