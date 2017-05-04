@@ -22,30 +22,23 @@ namespace jQueryToAurelia.Web.Controllers
         public IActionResult YearOptions()
         {
             return new OkObjectResult(new List<string>{
-					"all",
-					"1990",
-					"2000",
-					"2007"
-			});
+                    "all",
+                    "1990",
+                    "2000",
+                    "2007"
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> Solar(int year)
         {
-            year = year == 0 ? 2000 : year;
+            var yearIndicator = year == 0 ? "all" : year.ToString();
 
             // https://docs.asp.net/en/latest/fundamentals/file-providers.html?highlight=files#recommendations-for-use-in-apps
-            var jsonPath = $@"data\SolarEnergy{year}.json";
+            var jsonPath = $@"data\SolarEnergy{yearIndicator}.json";
             var json = await this.ReadTextAsync(jsonPath);
-            try
-            {
-                var energyData = JsonConvert.DeserializeObject<List<EnergyData>>(json);
-                return new OkObjectResult(energyData);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var energyData = JsonConvert.DeserializeObject<List<EnergyData>>(json);
+            return new OkObjectResult(energyData);
         }
 
         private async Task<string> ReadTextAsync(string filePath)
